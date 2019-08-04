@@ -32,6 +32,6 @@ flask db upgrade
 Website will show on http://127.0.0.1 (http://0.0.0.0)
 
 # TODO
-* support windows
-* dynamics set each config path
+* support windows env
+* dynamics set each config path and project path
 * write all install steps into install script
