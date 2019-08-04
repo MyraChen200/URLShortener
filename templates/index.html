@@ -6,6 +6,8 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script type="text/javascript">
 		function convert() {
+			$("#short_url").attr("href", "").text("");
+
 			if (!$("#url_input").val()) {
 					alert("Please enter URL");
 					return;
@@ -18,9 +20,7 @@
 					},
 					success: function (data) { 
 							$("#result_content").show();
-							$("#short_url").attr("href", data);
-							$("#short_url").text(data);
-							$("#short_url").val(data);
+							$("#short_url").attr("href", data).text(data);
 							$("#url_input").val("");
 					},
 					error: function (data) {
@@ -42,12 +42,11 @@
 		<label>Input your URL here：</label>
 		<input id="url_input" class="form-control" type="text">
 		<input type="button" class="btn btn-primary mt-1" value="Convert" onclick="convert();">
-		
 	</div>
 
 	<div id="result_content" class="form-inline col-8" style="display: none;">
 		<label>Short URL:</label>
-		<a id="short_url" class="mr-2 ml-2"></a>
+		<a id="short_url" class="mr-2 ml-2 col-lg-4"></a>
 		<input type="button" class="btn btn-warning" value="Copy" onclick="copy($('#short_url'));">
 	</div>
 </body>

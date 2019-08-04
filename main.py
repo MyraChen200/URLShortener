@@ -3,12 +3,10 @@ from urllib.parse import urlparse
 from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-
 import config
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = config.DB_URI
-app.config.setdefault('SQLALCHEMY_TRACK_MODIFICATIONS', False)
+app.config.from_object('config.Config')
 
 db = SQLAlchemy(app)
 import models
