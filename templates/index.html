@@ -1,0 +1,37 @@
+<!doctype html>
+<title>URL Shortener</title>
+
+<div>
+	<label>Input your URL here：</label>
+	<input id="url_input" type="text">
+	<input type="button" value="Convert" onclick="convert();">
+</div>
+
+<div id="result_content" style="display: none;">
+	<label>Short URL:</label>
+	<a id="result_url"></a>
+	<input type="button" value="Copy">
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+    function convert() {
+    	if (!$("#url_input").val()) {
+    		alert("Please enter URL");
+    		return;
+    	}
+        $.ajax({
+            type: "POST",
+            url: "/convert",
+            data: {
+            	"origin_url": $("#url_input").val()
+            },
+            success: function (data) { 
+            	$("#result_content").show();
+                $("#result_url").attr("href", data);
+                $("#result_url").text(data);
+            }
+        });                
+    }
+</script>
