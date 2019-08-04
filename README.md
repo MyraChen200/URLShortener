@@ -30,3 +30,8 @@ flask db upgrade
 * restart apache
 
 Website will show on http://127.0.0.1 (http://0.0.0.0)
+
+# TODO
+* support windows
+* project path should support dynamical
+* write all install steps into install script
