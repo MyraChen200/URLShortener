@@ -1,3 +1,5 @@
+import os
+
 # -- DB config
 DB = {
     "dbhost": '127.0.0.1:3306',
@@ -9,6 +11,7 @@ DB = {
 DB_URI = 'mysql://{0[dbuser]}:{0[dbpass]}@{0[dbhost]}/{0[dbname]}'.format(DB)
 
 # -- Logging config
+CURR_DIR = os.path.dirname(os.path.abspath(__file__))
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -21,7 +24,7 @@ LOGGING = {
         'logfile': {
             'class': 'logging.handlers.WatchedFileHandler',
             'formatter': 'default',
-            'filename': 'app.log'
+            'filename': '{}/app.log'.format(CURR_DIR)
         }
     },
     'root': {
@@ -29,6 +32,8 @@ LOGGING = {
         'handlers': ['logfile']
     }
 }
+
+HOST = "http://0.0.0.0"
 
 # -- env config setting
 class Config(object):
@@ -38,3 +43,4 @@ class Config(object):
 
 class ProductionConfig(Config):
     DEBUG = False
+    

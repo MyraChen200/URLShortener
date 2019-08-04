@@ -18,8 +18,6 @@ import models
 from models import *
 migrate = Migrate(app, db)
 
-HOST = "http://localhost:5000"
-
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -35,13 +33,13 @@ def convert():
 
     exist_key = get_exist_url(url)
     if exist_key:
-        short_url = "{}/{}".format(HOST, exist_key)
+        short_url = "{}/{}".format(config.HOST, exist_key)
         logger.info("URL {} be generated already, return exist short URL: {}".format(url, short_url))
         return short_url
 
     key = gen_key(url)
     insert_record(key, url)
-    short_url = "{}/{}".format(HOST, key)
+    short_url = "{}/{}".format(config.HOST, key)
     logger.info("Generate URL {} completed, save to DB".format(short_url))
 
     return short_url
