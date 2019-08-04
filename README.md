@@ -22,10 +22,11 @@ export FLASK_APP=main.py
 flask db upgrade
 ```
 
-## Deploy steps:
-copy project to /var/www/
-modify /var/www/URLShortener/app.log permission for write log
-copy URLShortener/installation/flask.conf to /etc/apache2/other/
-restart apache
+## Deploy steps
+
+* copy project to /var/www/
+* modify /var/www/URLShortener/app.log permission for write log
+* copy URLShortener/installation/flask.conf to /etc/apache2/other/
+* restart apache
 
 Website will show on http://127.0.0.1 (http://0.0.0.0)
