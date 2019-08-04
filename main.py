@@ -1,12 +1,17 @@
 import hashlib
 from urllib.parse import urlparse
+import logging
+from logging.config import dictConfig
 from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 import config
 
+dictConfig(config.LOGGING)
+
 app = Flask(__name__)
 app.config.from_object('config.Config')
+logger = logging.getLogger('root')
 
 db = SQLAlchemy(app)
 import models
@@ -22,20 +27,30 @@ def index():
 @app.route('/convert', methods=['POST'])
 def convert():
     url = request.form['origin_url']
+    logger.info("Start to convert url: {}".format(url))
+
     if not urlparse(url).scheme:
+        logger.info("Got not validate URL: {}, skip it".format(url))
         return "Please enter a validate URL", 400
 
     exist_key = get_exist_url(url)
     if exist_key:
-        return "{}/{}".format(HOST, exist_key)
+        short_url = "{}/{}".format(HOST, exist_key)
+        logger.info("URL {} be generated already, return exist short URL: {}".format(url, short_url))
+        return short_url
 
     key = gen_key(url)
     insert_record(key, url)
-    return "{}/{}".format(HOST, key)
+    short_url = "{}/{}".format(HOST, key)
+    logger.info("Generate URL {} completed, save to DB".format(short_url))
+
+    return short_url
 
 @app.route('/<key>', methods=['GET'])
 def redirect_to(key):
-    return redirect(get_url_by_key(key))
+    url = get_url_by_key(key)
+    logger.info("Receive redierct request with key {}, redirect to {}".format(key, url))
+    return redirect(url)
 
 def gen_key(url):
     return hashlib.md5(url.encode("utf-8")).hexdigest()[:10]
@@ -57,4 +72,4 @@ def insert_record(key, url):
     db.session.commit()
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
