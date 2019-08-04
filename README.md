@@ -5,6 +5,7 @@ Support env: osx, linux
 
 ## Before deploy
 Confirm DB config and related path correct
+
 Make virtual env and into it
 ```
 virtualenv pyvenv
