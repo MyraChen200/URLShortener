@@ -9,7 +9,7 @@
 
 <div id="result_content" style="display: none;">
 	<label>Short URL:</label>
-	<a id="result_url"></a>
+	<a id="short_url"></a>
 	<input type="button" value="Copy">
 </div>
 
@@ -29,8 +29,11 @@
             },
             success: function (data) { 
             	$("#result_content").show();
-                $("#result_url").attr("href", data);
-                $("#result_url").text(data);
+                $("#short_url").attr("href", data);
+                $("#short_url").text(data);
+            },
+            error: function (data) {
+            	alert(data.responseText);
             }
         });                
     }
