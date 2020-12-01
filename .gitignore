@@ -103,3 +103,5 @@ pyvenv/
 
 # mypy
 .mypy_cache/
+
+.history/

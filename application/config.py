@@ -1,4 +1,5 @@
 import os
+import redis
 
 # -- DB config
 DB = {
@@ -9,6 +10,9 @@ DB = {
 }
 
 DB_URI = 'mysql://{0[dbuser]}:{0[dbpass]}@{0[dbhost]}/{0[dbname]}'.format(DB)
+
+# -- Redis
+REDIS = redis.Redis(host='localhost', port=6379, db=0)
 
 # -- Logging config
 CURR_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -33,7 +37,7 @@ LOGGING = {
     }
 }
 
-HOST = "http://0.0.0.0"
+HOST = "http://0.0.0.0:5000"
 
 # -- env config setting
 class Config(object):
